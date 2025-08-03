@@ -51,6 +51,7 @@ let playRound = (humanChoice, computerChoice) => {
 }
 
 let playGame = () => {
+  console.clear()
   let i = 1;
   for (i; i <= 5; i++){
     let humanChoice = getHumanChoice();
@@ -68,7 +69,6 @@ let playGame = () => {
   } else {
     alert(`Human won! ${resultingScoreStr}`)
   }
-  console.clear()
   humanScore = 0;
   computerScore = 0;
 }
