@@ -39,12 +39,22 @@ img {
 }
 
 #overlay {
+  align-items: center;
   background-color: rgba(0, 0, 0, 0.4);
   cursor: pointer;
   display: none;
   height: 100%;
+  justify-content: center;
   position: fixed;
   width: 100%;
+}
+
+#overlay p {
+  color: #ffe8d6;
+  font-size: 96px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  text-align: center;
 }
 
 #board {
@@ -54,7 +64,7 @@ img {
   flex: 1;
   flex-direction: column;
   justify-content: center;
-  gap: 64px;
+  gap: 52px;
   padding: 32px;
 }
 
@@ -70,6 +80,7 @@ img {
   background-color: transparent;
   border: 8px solid #f4a261;
   border-radius: 10%;
+  box-shadow: 5px 5px 10px gray;
   display: flex;
   flex-direction: column;
   font-size: 160px;
@@ -82,6 +93,10 @@ img {
   font-size: 24px;
   font-weight: bold;
   margin: 8px;
+}
+
+#human-choice, #computer-choice {
+  text-shadow: 2px 2px black;
 }
 
 #options {

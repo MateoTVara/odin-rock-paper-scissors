@@ -1,76 +1,102 @@
-// const ROCK = "rock";
-// const PAPER = "paper";
-// const SCISSORS = "scissors";
-// let computerScore = 0;
-// let humanScore = 0;
+const boardDiv = document.querySelector("#board");
+const roundH2 = document.querySelector("#board h2");
+const optionsDiv = document.querySelector("#options");
+const humanChoiceDiv = document.querySelector("#human-choice");
+const computerChoiceDiv = document.querySelector("#computer-choice");
+const humanScoreSpan = document.querySelector("#p-human span");
+const computerScoreSpan = document.querySelector("#p-computer span");
+const overlayDiv = document.querySelector("#overlay");
+const resultMessage = document.querySelector("#overlay p");
 
-// let getComputerChoice = () => {
-//   let numericVal = Math.floor(Math.random() * 3) + 1;
-//   switch (numericVal){
-//     case 1:
-//       return ROCK;
-//     case 2:
-//       return PAPER;
-//     case 3:
-//       return SCISSORS;
-//   }
-// }
+let humanScore = 0;
+let computerScore = 0;
+let round = 0;
 
-// let getHumanChoice = () => {
-//   let stringVar = prompt("Please enter either 'Rock', 'Paper' or 'Scissors'");
-//   if (stringVar == null){
-//     console.log("Enter a valid option");
-//     return getHumanChoice();
-//   }
-//   stringVar = stringVar.toLowerCase();
-//   switch(stringVar){
-//     case ROCK:
-//       return ROCK
-//     case PAPER:
-//       return PAPER
-//     case SCISSORS:
-//       return SCISSORS
-//     default:
-//       console.log("Enter a valid option");
-//       return getHumanChoice();
-//   }
-// }
+function getComputerChoice() {
+  let computerChoice = {"str": "", "icon": ""}
+  const numericVal = Math.floor(Math.random() * 3);
+  switch (numericVal) {
+    case 0:
+      computerChoice.str = "rock";
+      computerChoice.icon = "✊";
+      return computerChoice;
+    case 1:
+      computerChoice.str = "paper";
+      computerChoice.icon = "✋";
+      return computerChoice;
+    case 2:
+      computerChoice.str = "scissors";
+      computerChoice.icon = "✌️";
+      return computerChoice;
+  };
+};
 
-// let playRound = (humanChoice, computerChoice) => {
-//   if (humanChoice == computerChoice) {
-//     return "tied this round"
-//   } else if (humanChoice == ROCK && computerChoice == SCISSORS ||
-//              humanChoice == PAPER && computerChoice == ROCK ||
-//              humanChoice == SCISSORS && computerChoice == PAPER){
-//     humanScore += 1;
-//     return "win this round"
-//   } else {
-//     computerScore += 1;
-//     return "lose this round"
-//   }
-// }
+function playRound(humanChoice, computerChoice) {
+  if (humanChoice == computerChoice) {
+    return "¡Draw!"
+  } else if (humanChoice == "rock" && computerChoice == "scissors" ||
+             humanChoice == "paper" && computerChoice == "rock" ||
+             humanChoice == "scissors" && computerChoice == "paper"){
+    humanScore += 1;
+    humanScoreSpan.textContent = humanScore;
+    return "You won!";
+  } else {
+    computerScore += 1;
+    computerScoreSpan.textContent = computerScore;
+    return "You lose.";
+  }
+};
 
-// let playGame = () => {
-//   console.clear()
-//   let i = 1;
-//   for (i; i <= 5; i++){
-//     let humanChoice = getHumanChoice();
-//     let computerChoice = getComputerChoice();
-//     let loseOrWing = playRound(humanChoice, computerChoice);
-//     console.log(`Round ${i}:
-//                 -Human: ${humanChoice}
-//                 -Computer: ${computerChoice}\n\nyou ${loseOrWing}`)
-//   }
-//   let resultingScoreStr = `(H ${humanScore} - ${computerScore} C)`
-//   if (humanScore == computerScore) {
-//     alert(`TIED! ${resultingScoreStr}`)   
-//   } else if (humanScore < computerScore){
-//     alert(`Computer won ${resultingScoreStr}`)
-//   } else {
-//     alert(`Human won! ${resultingScoreStr}`)
-//   }
-//   humanScore = 0;
-//   computerScore = 0;
-// }
+function showResult() {
+  overlayDiv.style.cssText = "display: flex";
+  if (humanScore > computerScore) {
+    resultMessage.textContent = "You win the game — well played!";
+  } else if (humanScore < computerScore) {
+    resultMessage.textContent = "Game over. Better luck next time!";
+  } else {
+    resultMessage.textContent = "A perfect balance — no winner this time.!";
+  }
+}
 
-// playGame();
+optionsDiv.addEventListener("click", (e) => {
+  let target = e.target;
+  let humanChoice = target.id;
+  let computerChoice = getComputerChoice();
+  let result;
+  if (target.id !== "options"){
+    computerChoiceDiv.textContent = computerChoice.icon;
+  }
+  switch(target.id) {
+    case "rock":
+      humanChoiceDiv.textContent = "✊";
+      result = playRound(humanChoice, computerChoice.str);
+      round += 1;
+      roundH2.textContent = `Round ${round}: ${result}`;
+      break;
+    case "paper":
+      humanChoiceDiv.textContent = "✋";
+      result = playRound(humanChoice, computerChoice.str);
+      round += 1;
+      roundH2.textContent = `Round ${round}: ${result}`;
+      break;
+    case "scissors":
+      humanChoiceDiv.textContent = "✌️";
+      result = playRound(humanChoice, computerChoice.str);
+      round += 1;
+      roundH2.textContent = `Round ${round}: ${result}`;
+      break;
+  };
+  if (round === 5) showResult();
+});
+
+overlayDiv.addEventListener("click", () => {
+  round = 0;
+  humanScore = 0;
+  humanScoreSpan.textContent = humanScore;
+  humanChoiceDiv.textContent = "👨‍🦲";
+  computerScore = 0;
+  computerScoreSpan.textContent = computerScore;
+  computerChoiceDiv.textContent = "🖥️";
+  overlayDiv.style.display = "none";
+  roundH2.textContent = "MAKE YOUR MOVE!"
+})
