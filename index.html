@@ -2,15 +2,39 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
     <title>Rock, paper, scissors</title>
   </head>
   <body>
-    <p style="font-family: Roboto, sans-serif;">
-      Don't forget that you can use 
-      <span style="font-weight: bold;">
-        "playGame();"
-      </span> in console to play again!
-    </p>
-    <script src="script.js"></script>
+    <div id="header"><h1>ODIN ROCK PAPER SCISSORS GAME</h1></div>
+    <div id="board">
+      <div id="selections">
+        <div id="human">
+          <p id="p-human">Human: <span>0</span></p>
+          <p id="human-choice">👨‍🦲</p>
+        </div>
+        <div id="computer">
+          <p id="p-computer">Computer: <span>0</span></p>
+          <p id="computer-choice">🖥️</p>
+        </div>
+      </div>
+      <div id="options">
+        <button id="rock">✊</button>
+        <button id="paper">✋</button>
+        <button id="scissors">✌️</button>
+      </div>
+    </div>
+    <div id="footer">
+      <div class="container">
+        <p>Just a demo - feedback is welcome!</p>
+        <a href="https://github.com/MateoTVara" target="_blank" rel="noopener noreferrer">
+          <img src="images/github-mark.svg" width="32" height="32" alt="GitHub logo">
+        </a>
+      </div>
+    </div>
+    <div id="overlay">
+      <p>PLAY AGAIN!</p>
+    </div>
   </body>
 </html>
